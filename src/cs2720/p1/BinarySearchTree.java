@@ -1,7 +1,7 @@
 package cs2720.p1;
 
 public class BinarySearchTree<T extends Comparable<T>> {
-    public NodeType<T> root;
+    private NodeType<T> root;
 
     /**
      * The constructor of a BinarySearchTree.
@@ -9,7 +9,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * by Maulik Durani
      */
     public BinarySearchTree() {
-	root = new NodeType<T>();
+        this.root = new NodeType<T>(null);
+        throw new UnsupportedOperationException("Has not been implemented");
     }
 
     /**
@@ -18,7 +19,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * @param key the item to be inserted into the tree
      */
     public void insert(T key) {
-
+        throw new UnsupportedOperationException("Has not been implemented");
     }
 
     /**
@@ -39,7 +40,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      *
      */
     public boolean retrieve(T item) {
-
+        throw new UnsupportedOperationException("Has not been implemented");
     }
 
     /**
@@ -47,6 +48,18 @@ public class BinarySearchTree<T extends Comparable<T>> {
      *
      */
     public void inOrder() {
+        throw new UnsupportedOperationException("Has not been implemented");
+    }
 
+    /* Helper Methods */
+
+    /**
+     * Returns the root node of the binary search tree.
+     * By Ryan Majd
+     * 
+     * @return the root node of the binary search tree
+     */
+    public NodeType<T> getRoot() {
+        return this.root;
     }
 }
