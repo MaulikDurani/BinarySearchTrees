@@ -10,7 +10,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      */
     public BinarySearchTree() {
         this.root = new NodeType<T>(null);
-        throw new UnsupportedOperationException("Has not been implemented");
+        
     }
 
     /**
