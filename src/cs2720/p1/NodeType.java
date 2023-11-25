@@ -10,9 +10,9 @@ public class NodeType<T extends Comparable<T>> {
      *
      */
     public NodeType(T value) {
-	this.info = value;
-	this.left = null;
-	this.right = null;
+        this.info = value;
+        this.left = null;
+        this.right = null;
     }
 
     /**
@@ -22,7 +22,7 @@ public class NodeType<T extends Comparable<T>> {
      *
      */
     public T getInfo() {
-	return this.info;
+        return this.info;
     }
 
     /**
@@ -32,7 +32,7 @@ public class NodeType<T extends Comparable<T>> {
      *
      */
     public NodeType<T> getLeft() {
-	return this.left;
+        return this.left;
     }
 
     /**
@@ -42,7 +42,7 @@ public class NodeType<T extends Comparable<T>> {
      *
      */
     public NodeType<T> getRight() {
-	return this.right;
+        return this.right;
     }
 
     /**
@@ -52,7 +52,7 @@ public class NodeType<T extends Comparable<T>> {
      *
      */
     public void setInfo(T value) {
-	this.info = value;
+        this.info = value;
     }
 
     /**
@@ -62,7 +62,7 @@ public class NodeType<T extends Comparable<T>> {
      *
      */
     public void setLeft(NodeType<T> left) {
-	this.left = left;
+        this.left = left;
     }
 
     /**
@@ -72,6 +72,6 @@ public class NodeType<T extends Comparable<T>> {
      *
      */
     public void setRight(NodeType<T> right) {
-	this.right = right;
+        this.right = right;
     }
 }

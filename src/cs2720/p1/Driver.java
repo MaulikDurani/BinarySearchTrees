@@ -57,9 +57,23 @@ public class Driver<T extends Comparable<T>> {
                 "(c) - Find Cousins\n" +
                 "(q) - Quit program");
         System.out.println(commands);
-        String list = readData(file);
-        System.out.println(list);
-
+        String[] arr = readData(file).split(" ");
+        if (choice.equals("s")) {
+            bst.insert(arr[0]);
+            for (int i = 1; i < arr.length; i++) {
+                bst.insert(arr[i].trim());
+            }
+        } else if (choice.equals("i")) {
+            bst.insert(Integer.parseInt(arr[0]));
+            for (int i = 1; i < arr.length; i++) {
+                bst.insert(Integer.parseInt(arr[i].trim()));
+            }
+        } else {
+            bst.insert(Double.parseDouble(arr[0]));
+            for (int i = 1; i < arr.length; i++) {
+                bst.insert(Double.parseDouble(arr[i].trim()));
+            }
+        }
         while (!quit) {
             if (!badPrevAns) {
                 System.out.print("Enter a Command: ");
@@ -69,8 +83,9 @@ public class Driver<T extends Comparable<T>> {
 
             switch (cmd) {
                 case "i":
-                    badPrevAns = false;
-                    System.out.print("Enter a item to insert: ");
+                    badPrevAns = false; // will change this back to insert, just using it for figuring issues out rn.
+                    System.out.print("TREE: \n");
+                    bst.toTree();
                     break;
                 case "d":
                     quit = true;
@@ -78,7 +93,7 @@ public class Driver<T extends Comparable<T>> {
                     break;
                 case "p":
                     badPrevAns = false;
-                    System.out.println("print tree");
+                    System.out.println(bst.toString());
                     break;
                 case "r":
                     badPrevAns = false;
