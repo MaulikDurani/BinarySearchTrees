@@ -59,9 +59,9 @@ public class BinarySearchTree<T extends Comparable<T>> {
      *
      */
     @SuppressWarnings("unchecked")
-    public T convertToType(String input) {
+    public T convertToType(String input, String choice) {
         String lInput = input.toLowerCase();
-        if (input.contains(".") || Driver.t.equals("d")) {
+        if (input.contains(".") || choice.equals("d")) {
             double d = Double.parseDouble(input);
             return (T) (Comparable) d;
         } else if (lInput.matches("[0-9]+")) {
@@ -76,8 +76,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
      *
      * By Ryan Majd
      */
-    public void convertAndInsert(String input) {
-        T dt = convertToType(input);
+    public void convertAndInsert(String input, String choice) {
+        T dt = convertToType(input, choice);
         insert(dt);
     }
 
@@ -166,7 +166,6 @@ public class BinarySearchTree<T extends Comparable<T>> {
      *
      */
     public int getNumLeafNodes(NodeType<T> node) {
-        NodeType<T> temp = root;
         if (node == null) {
             return 0;
         }
@@ -187,4 +186,40 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return getNumLeafNodes(root);
     }
 
+    /**
+     * Returns a string of all of the nodes that only have one child.
+     * By Maulik Durani
+     *
+     * @return result a string of all the nodes that have only one child node
+     *
+     */
+    public String getSingleParent(NodeType<T> node) {
+	String result = "";
+	if (node != null) {
+	    if (node.getLeft() == null && node.getRight() != null) {
+		result += node.getInfo() + " ";
+	    } else if (node.getLeft() != null && node.getRight() == null) {
+		result += node.getInfo() + " ";
+	    }
+	    result += getSingleParent(node.getLeft());
+	    result += getSingleParent(node.getRight());
+	} else {
+	    return "";
+	}
+	return result;
+    }
+
+    /**
+     * Returns the string of all single parent nodes.
+     * By Maulik Durani
+     *
+     * @returns list the string of all single parent nodes
+     *
+     */
+    public String getSingleParents() {
+	String list = getSingleParent(root);
+	list = list.replace("null ", "");
+	return list;
+    }
+    
 }

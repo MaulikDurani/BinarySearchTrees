@@ -64,7 +64,7 @@ public class Driver<T extends Comparable<T>> {
         String[] arr = readData(file).split(" ");
         String type = "s";
         for (int i = 0; i < arr.length; i++) {
-            bst.convertAndInsert(arr[i].trim());
+            bst.convertAndInsert(arr[i].trim(), choice);
         }
         while (!quit) {
             if (!badPrevAns) {
@@ -78,7 +78,7 @@ public class Driver<T extends Comparable<T>> {
                     badPrevAns = false; // will change this back to insert, just using it for figuring issues out rn.
                     System.out.print("Enter a number to insert: ");
                     String input = sc.nextLine();
-                    bst.convertAndInsert(input);
+                    bst.convertAndInsert(input, choice);
                     System.out.println(bst.toString());
                     System.out.print("TREE: \n");
                     bst.toTree();
@@ -102,7 +102,7 @@ public class Driver<T extends Comparable<T>> {
                     break;
                 case "s":
                     badPrevAns = false;
-                    System.out.println("find single parents");
+		    System.out.println("Single Parents: " + bst.getSingleParents());
                     break;
                 case "c":
                     System.out.print("find cousins");
