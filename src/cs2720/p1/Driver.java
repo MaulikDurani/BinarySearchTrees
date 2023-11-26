@@ -10,15 +10,19 @@ public class Driver<T extends Comparable<T>> {
      * @param args
      * @throws FileNotFoundException
      */
+    public static String t = "";
+
     public static void main(String[] args) throws FileNotFoundException {
         File file = null;
         boolean quit = false;
         boolean badPrevAns = false;
         Scanner sc = new Scanner(System.in);
+
         // Scanner scan;
         System.out.print("Enter list type (i - int, d - double, s - std:string): ");
 
-        String choice = sc.nextLine();
+        final String choice = sc.nextLine();
+        t = choice;
         BinarySearchTree<?> bst = null;
         // File "creation"
         switch (choice) {
@@ -58,22 +62,9 @@ public class Driver<T extends Comparable<T>> {
                 "(q) - Quit program");
         System.out.println(commands);
         String[] arr = readData(file).split(" ");
-	String type = "s";
-        if (choice.equals("s")) {
-            bst.insert(arr[0]);
-            for (int i = 1; i < arr.length; i++) {
-                bst.insert(arr[i].trim());
-            }
-        } else if (choice.equals("i")) {
-            bst.insert(Integer.parseInt(arr[0]));
-            for (int i = 1; i < arr.length; i++) {
-                bst.insert(Integer.parseInt(arr[i].trim()));
-            }
-        } else {
-            bst.insert(Double.parseDouble(arr[0]));
-            for (int i = 1; i < arr.length; i++) {
-                bst.insert(Double.parseDouble(arr[i].trim()));
-            }
+        String type = "s";
+        for (int i = 0; i < arr.length; i++) {
+            bst.convertAndInsert(arr[i].trim());
         }
         while (!quit) {
             if (!badPrevAns) {
@@ -85,11 +76,11 @@ public class Driver<T extends Comparable<T>> {
             switch (cmd) {
                 case "i":
                     badPrevAns = false; // will change this back to insert, just using it for figuring issues out rn.
-		    System.out.print("Enter a number to insert: ");
-		    String input = sc.nextLine();
-		    bst.convertAndInsert(input);
-		    System.out.println(bst.toString());
-		    System.out.print("TREE: \n");
+                    System.out.print("Enter a number to insert: ");
+                    String input = sc.nextLine();
+                    bst.convertAndInsert(input);
+                    System.out.println(bst.toString());
+                    System.out.print("TREE: \n");
                     bst.toTree();
                     break;
                 case "d":
@@ -106,8 +97,8 @@ public class Driver<T extends Comparable<T>> {
                     break;
                 case "l":
                     badPrevAns = false;
-		    int numLeafNodes = bst.getLeafCount();
-		    System.out.println("The number of leaf nodes are " + numLeafNodes);
+                    int numLeafNodes = bst.getLeafCount();
+                    System.out.println("The number of leaf nodes are " + numLeafNodes);
                     break;
                 case "s":
                     badPrevAns = false;

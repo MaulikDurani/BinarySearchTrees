@@ -10,22 +10,6 @@ public class BinarySearchTree<T extends Comparable<T>> {
      */
     public BinarySearchTree() {
         this.root = new NodeType<T>(null);
-
-    }
-
-    public void insert(String str) {
-        T key = (T) str; // This assumes T is a generic type that can be cast from String
-        root = insertRecursive(root, key);
-    }
-
-    public void insert(int i) {
-        T key = (T) Integer.valueOf(i);
-        root = insertRecursive(root, key);
-    }
-
-    public void insert(double d) {
-        T key = (T) Double.valueOf(d);
-        root = insertRecursive(root, key);
     }
 
     public void insert(T key) {
@@ -76,15 +60,15 @@ public class BinarySearchTree<T extends Comparable<T>> {
      */
     @SuppressWarnings("unchecked")
     public T convertToType(String input) {
-	String lInput = input.toLowerCase();
-	if (input.contains(".")) {
-	    double d = Double.parseDouble(input);
-	    return (T) (Comparable) d;
-	} else if (lInput.matches("[0-9]+")) {
-	    Integer i = Integer.parseInt(input);
-	    return (T) i;
-	}
-	return (T) input;
+        String lInput = input.toLowerCase();
+        if (input.contains(".") || Driver.t.equals("d")) {
+            double d = Double.parseDouble(input);
+            return (T) (Comparable) d;
+        } else if (lInput.matches("[0-9]+")) {
+            Integer i = Integer.parseInt(input);
+            return (T) i;
+        }
+        return (T) input;
     }
 
     /**
@@ -93,10 +77,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * By Ryan Majd
      */
     public void convertAndInsert(String input) {
-	T dt = convertToType(input);
-	insert(dt);
+        T dt = convertToType(input);
+        insert(dt);
     }
-    
+
     /**
      * Deletes the item from the tree.
      *
@@ -115,14 +99,6 @@ public class BinarySearchTree<T extends Comparable<T>> {
      *
      */
     public boolean retrieve(T item) {
-        throw new UnsupportedOperationException("Has not been implemented");
-    }
-
-    /**
-     * Prints out the tree in in-order.
-     *
-     */
-    public void inOrder() {
         throw new UnsupportedOperationException("Has not been implemented");
     }
 
@@ -190,14 +166,14 @@ public class BinarySearchTree<T extends Comparable<T>> {
      *
      */
     public int getNumLeafNodes(NodeType<T> node) {
-	NodeType<T> temp = root;
-	if (node == null) {
-	    return 0;
-	}
-	if (node.getLeft() == null && node.getRight() == null) {
-	    return 1;
-	}
-	return getNumLeafNodes(node.getLeft()) + getNumLeafNodes(node.getRight());
+        NodeType<T> temp = root;
+        if (node == null) {
+            return 0;
+        }
+        if (node.getLeft() == null && node.getRight() == null) {
+            return 1;
+        }
+        return getNumLeafNodes(node.getLeft()) + getNumLeafNodes(node.getRight());
     }
 
     /**
@@ -208,8 +184,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      *
      */
     public int getLeafCount() {
-	return getNumLeafNodes(root);
+        return getNumLeafNodes(root);
     }
-
 
 }
