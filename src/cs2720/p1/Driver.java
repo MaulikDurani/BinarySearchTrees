@@ -84,8 +84,13 @@ public class Driver<T extends Comparable<T>> {
                     bst.toTree();
                     break;
                 case "d":
-                    quit = true;
+                    badPrevAns = false;
                     System.out.print("Enter an item to delete: ");
+                    String item = sc.nextLine();
+                    bst.convertAndDelete(item, choice);
+                    System.out.println(bst.toString());
+                    System.out.print("TREE: \n");
+                    bst.toTree();
                     break;
                 case "p":
                     badPrevAns = false;
@@ -102,7 +107,7 @@ public class Driver<T extends Comparable<T>> {
                     break;
                 case "s":
                     badPrevAns = false;
-		    System.out.println("Single Parents: " + bst.getSingleParents());
+                    System.out.println("Single Parents: " + bst.getSingleParents());
                     break;
                 case "c":
                     System.out.print("find cousins");

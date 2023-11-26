@@ -81,14 +81,78 @@ public class BinarySearchTree<T extends Comparable<T>> {
         insert(dt);
     }
 
+    public void convertAndDelete(String input, String choice) {
+        T dt = convertToType(input, choice);
+        delete(dt);
+    }
+
     /**
      * Deletes the item from the tree.
      *
      * @param key the item to be deleted from the tree
+     * 
+     *            By Ryan Majd
      *
      */
     public void delete(T key) {
+        root = deleteRecursive(root, key);
+    }
 
+    private NodeType<T> deleteRecursive(NodeType<T> root, T key) {
+        if (root == null) {
+            // If the tree is empty or the key is not found
+            System.out.println("The number is not present in the tree");
+            return null;
+        }
+
+        int compareResult;
+
+        if (key == null && root.getInfo() == null) {
+            compareResult = 0;
+        } else if (key == null) {
+            // The new key is null, so it's considered smaller than a non-null key
+            compareResult = -1;
+        } else if (root.getInfo() == null) {
+            // The existing key is null, so it's considered smaller than a non-null key
+            compareResult = 1;
+        } else {
+            // Compare non-null keys
+            compareResult = key.compareTo(root.getInfo());
+        }
+
+        if (compareResult < 0) {
+            // If the key is smaller, go to the left subtree
+            root.setLeft(deleteRecursive(root.getLeft(), key));
+        } else if (compareResult > 0) {
+            // If the key is larger, go to the right subtree
+            root.setRight(deleteRecursive(root.getRight(), key));
+        } else {
+            // Node with the key to be deleted found
+
+            // Case 1: Node with only one child or no child
+            if (root.getLeft() == null) {
+                return root.getRight();
+            } else if (root.getRight() == null) {
+                return root.getLeft();
+            }
+
+            // Case 3: Node with two children
+            // Find the smallest node in the right subtree (in-order successor)
+            root.setInfo(findMin(root.getRight()).getInfo());
+
+            // Delete the in-order successor
+            root.setRight(deleteRecursive(root.getRight(), root.getInfo()));
+        }
+
+        return root;
+    }
+
+    private NodeType<T> findMin(NodeType<T> node) {
+        // Find the leftmost node in the tree (smallest node)
+        while (node.getLeft() != null) {
+            node = node.getLeft();
+        }
+        return node;
     }
 
     /**
@@ -194,19 +258,19 @@ public class BinarySearchTree<T extends Comparable<T>> {
      *
      */
     public String getSingleParent(NodeType<T> node) {
-	String result = "";
-	if (node != null) {
-	    if (node.getLeft() == null && node.getRight() != null) {
-		result += node.getInfo() + " ";
-	    } else if (node.getLeft() != null && node.getRight() == null) {
-		result += node.getInfo() + " ";
-	    }
-	    result += getSingleParent(node.getLeft());
-	    result += getSingleParent(node.getRight());
-	} else {
-	    return "";
-	}
-	return result;
+        String result = "";
+        if (node != null) {
+            if (node.getLeft() == null && node.getRight() != null) {
+                result += node.getInfo() + " ";
+            } else if (node.getLeft() != null && node.getRight() == null) {
+                result += node.getInfo() + " ";
+            }
+            result += getSingleParent(node.getLeft());
+            result += getSingleParent(node.getRight());
+        } else {
+            return "";
+        }
+        return result;
     }
 
     /**
@@ -217,9 +281,9 @@ public class BinarySearchTree<T extends Comparable<T>> {
      *
      */
     public String getSingleParents() {
-	String list = getSingleParent(root);
-	list = list.replace("null ", "");
-	return list;
+        String list = getSingleParent(root);
+        list = list.replace("null ", "");
+        return list;
     }
-    
+
 }
