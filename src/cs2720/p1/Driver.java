@@ -58,6 +58,7 @@ public class Driver<T extends Comparable<T>> {
                 "(q) - Quit program");
         System.out.println(commands);
         String[] arr = readData(file).split(" ");
+	String type = "s";
         if (choice.equals("s")) {
             bst.insert(arr[0]);
             for (int i = 1; i < arr.length; i++) {
@@ -84,7 +85,11 @@ public class Driver<T extends Comparable<T>> {
             switch (cmd) {
                 case "i":
                     badPrevAns = false; // will change this back to insert, just using it for figuring issues out rn.
-                    System.out.print("TREE: \n");
+		    System.out.print("Enter a number to insert: ");
+		    String input = sc.nextLine();
+		    bst.convertAndInsert(input);
+		    System.out.println(bst.toString());
+		    System.out.print("TREE: \n");
                     bst.toTree();
                     break;
                 case "d":
@@ -101,6 +106,9 @@ public class Driver<T extends Comparable<T>> {
                     break;
                 case "l":
                     badPrevAns = false;
+		    int numLeafNodes = bst.getNumLeafNodes();
+		    System.out.println("The number of leaf nodes are " + numLeafNodes);
+		    
                     System.out.println("count leaf nodes");
                     break;
                 case "s":

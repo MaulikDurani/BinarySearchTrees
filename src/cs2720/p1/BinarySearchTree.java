@@ -67,6 +67,37 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     /**
+     * Converts input from scanner to desired data type.
+     *
+     * By Ryan Majd
+     *
+     * @returns input the converted input to the desired data type
+     *
+     */
+    @SuppressWarnings("unchecked")
+    public T convertToType(String input) {
+	String lInput = input.toLowerCase();
+	if (input.contains(".")) {
+	    double d = Double.parseDouble(input);
+	    return (T) (Comparable) d;
+	} else if (lInput.matches("[0-9]+")) {
+	    Integer i = Integer.parseInt(input);
+	    return (T) i;
+	}
+	return (T) input;
+    }
+
+    /**
+     * Inserts converted data type into the BinarySearchTree
+     *
+     * By Ryan Majd
+     */
+    public void convertAndInsert(String input) {
+	T dt = convertToType(input);
+	insert(dt);
+    }
+    
+    /**
      * Deletes the item from the tree.
      *
      * @param key the item to be deleted from the tree
@@ -150,4 +181,25 @@ public class BinarySearchTree<T extends Comparable<T>> {
             inOrderTraversal(root.getRight(), result);
         }
     }
+
+    /**
+     * Returns the number of leaf nodes.
+     * By Maulik Durani
+     *
+     * @returns int the number of leaf nodes.
+     */
+    public int getNumLeafNodes() {
+	NodeType<T> temp = root;
+	if (temp == null) {
+	    return 0;
+	}
+	if (temp.getLeft() == null && temp.getRight() == null) {
+	    return 1;
+	}
+	return getNumLeafNodes(temp.getLeft()) + getNumLeafNodes(temp.getRight());
+    }
+
+
+
+
 }
