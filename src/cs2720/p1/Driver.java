@@ -106,10 +106,8 @@ public class Driver<T extends Comparable<T>> {
                     break;
                 case "l":
                     badPrevAns = false;
-		    int numLeafNodes = bst.getNumLeafNodes();
+		    int numLeafNodes = bst.getLeafCount();
 		    System.out.println("The number of leaf nodes are " + numLeafNodes);
-		    
-                    System.out.println("count leaf nodes");
                     break;
                 case "s":
                     badPrevAns = false;

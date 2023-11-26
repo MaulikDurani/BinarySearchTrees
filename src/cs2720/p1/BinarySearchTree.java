@@ -187,19 +187,29 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * By Maulik Durani
      *
      * @returns int the number of leaf nodes.
+     *
      */
-    public int getNumLeafNodes() {
+    public int getNumLeafNodes(NodeType<T> node) {
 	NodeType<T> temp = root;
-	if (temp == null) {
+	if (node == null) {
 	    return 0;
 	}
-	if (temp.getLeft() == null && temp.getRight() == null) {
+	if (node.getLeft() == null && node.getRight() == null) {
 	    return 1;
 	}
-	return getNumLeafNodes(temp.getLeft()) + getNumLeafNodes(temp.getRight());
+	return getNumLeafNodes(node.getLeft()) + getNumLeafNodes(node.getRight());
     }
 
-
+    /**
+     * Returns the number of leaf nodes.
+     * By Maulik Durani
+     *
+     * @return int the number of leaf nodes
+     *
+     */
+    public int getLeafCount() {
+	return getNumLeafNodes(root);
+    }
 
 
 }
