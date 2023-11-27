@@ -425,7 +425,10 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     public int getDepth(NodeType<T> node, T item) {
 	if (node == null) {
-	    return 0;
+	    System.out.println("Node: " + node.getInfo());
+	    System.out.println("Node's left child: " + node.getLeft() + " Node's right child: " + node.getRight()); 
+	    System.out.println("Root: " + root.getInfo());
+	    return -1;
 	} else if (item.compareTo(node.getInfo()) < 0) {
 	    return getDepth(node.getLeft(), item) + 1;
 	} else if (item.compareTo(node.getInfo()) > 0) {
@@ -449,8 +452,9 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     public void printDepth(NodeType<T> node, int depth) {
+	if (node != null) {
 	if (depth == 0) {
-	    System.out.println(node.getInfo() + " ");
+	    System.out.print(node.getInfo() + " ");
 	}
 	if (node.getLeft() == null && node.getRight() == null) {
 	    return;
@@ -463,10 +467,12 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	    printDepth(node.getRight(), depth - 1);
 	}
     }
+    }
 
     public void getCousins(T item) {
 	if (searchRecursive(root, item)) {
-	    int depth = getDepth(root, item);
+	    int depth = getDepth(root.getRight(), item);
+	    System.out.println("The Depth is" + depth);
 	    getCousinsRecursive(root, item, depth);
 	} else {
 	    System.out.println("");

@@ -113,7 +113,6 @@ public class Driver<T extends Comparable<T>> {
 		    System.out.print(bst.toString() + "\nEnter a value: ");
 		    String value = sc.nextLine();
 		    bst.getCousinsConverted(value, choice);
-                    System.out.print("find cousins\n");
                     break;
                 case "q":
                     badPrevAns = false;
