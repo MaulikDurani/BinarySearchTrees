@@ -422,4 +422,59 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return list;
     } // get single parents
 
+
+    public int getDepth(NodeType<T> node, T item) {
+	if (node == null) {
+	    return 0;
+	} else if (item.compareTo(node.getInfo()) < 0) {
+	    return getDepth(node.getLeft(), item) + 1;
+	} else if (item.compareTo(node.getInfo()) > 0) {
+	    return getDepth(node.getRight(), item) + 1;
+	} else {
+	    return 0;
+	}
+    }
+
+    public void getCousinsRecursive(NodeType<T> node, T item, int depth) {
+	if (depth < 2) {
+	    return;
+	}
+	if (searchRecursive(node.getLeft(), item)) {
+	    getCousinsRecursive(node.getLeft(), item, depth - 1);
+	    printDepth(node.getRight(), depth - 1);
+	} else {
+	    getCousinsRecursive(node.getRight(), item, depth - 1);
+	    printDepth(node.getLeft(), depth - 1);
+	}
+    }
+
+    public void printDepth(NodeType<T> node, int depth) {
+	if (depth == 0) {
+	    System.out.println(node.getInfo() + " ");
+	}
+	if (node.getLeft() == null && node.getRight() == null) {
+	    return;
+	} else if (node.getLeft() == null && node.getRight() != null) {
+	    printDepth(node.getRight(), depth - 1);
+	} else if (node.getRight() != null && node.getRight() == null) {
+	    printDepth(node.getLeft(), depth - 1);
+	} else {
+	    printDepth(node.getLeft(), depth - 1);
+	    printDepth(node.getRight(), depth - 1);
+	}
+    }
+
+    public void getCousins(T item) {
+	if (searchRecursive(root, item)) {
+	    int depth = getDepth(root, item);
+	    getCousinsRecursive(root, item, depth);
+	} else {
+	    System.out.println("");
+	}
+    }
+
+    public void getCousinsConverted(String input, String choice) {
+	T dt = convertToType(input, choice);
+	getCousins(dt);
+    }
 } // BST
