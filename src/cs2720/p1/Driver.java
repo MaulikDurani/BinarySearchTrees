@@ -62,7 +62,6 @@ public class Driver<T extends Comparable<T>> {
                 "(q) - Quit program");
         System.out.println(commands);
         String[] arr = readData(file).split(" ");
-        String type = "s";
         for (int i = 0; i < arr.length; i++) {
             bst.convertAndInsert(arr[i].trim(), choice);
         }
@@ -98,23 +97,25 @@ public class Driver<T extends Comparable<T>> {
                     break;
                 case "r":
                     badPrevAns = false;
-                    System.out.print("retrieve item");
+                    System.out.print(bst.toString() + "\nEnter a number to search: ");
+                    String ans = sc.nextLine();
+                    bst.convertAndSearch(ans, choice);
                     break;
                 case "l":
                     badPrevAns = false;
-                    int numLeafNodes = bst.getLeafCount();
-                    System.out.println("The number of leaf nodes are " + numLeafNodes);
+                    System.out.println("The number of leaf nodes are " + bst.getLeafCount());
                     break;
                 case "s":
                     badPrevAns = false;
                     System.out.println("Single Parents: " + bst.getSingleParents());
                     break;
                 case "c":
-                    System.out.print("find cousins");
+                    System.out.print("find cousins\n");
                     break;
                 case "q":
                     badPrevAns = false;
                     quit = true;
+                    sc.close();
                     break;
                 default:
                     badPrevAns = true;
@@ -126,11 +127,13 @@ public class Driver<T extends Comparable<T>> {
     } // main
 
     /**
-     * !File creation will be updated to create the bst objects later on!.
+     * Reads the data from a file and returns it as a string.
+     *
+     * By Ryan Majd
      * 
-     * @param file
-     * @return String representing the bst object.
-     * @throws FileNotFoundException
+     * @param file the file to read the data from
+     * @return the data from the file as a string
+     * @throws FileNotFoundException if the file is not found
      */
     private static String readData(File file) throws FileNotFoundException {
         try (Scanner reader = new Scanner(file)) {
@@ -146,4 +149,4 @@ public class Driver<T extends Comparable<T>> {
 
     } // readData()
 
-}
+} // Driver
