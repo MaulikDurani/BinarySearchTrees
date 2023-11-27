@@ -413,7 +413,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * Returns the string of all single parent nodes.
      * By Maulik Durani
      *
-     * @returns list the string of all single parent nodes
+     * @return list the string of all single parent nodes
      *
      */
     public String getSingleParents() {
@@ -422,12 +422,18 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return list;
     } // get single parents
 
-
+    /**
+     * Returns the depth of the specified item.
+     * By Maulik Durani
+     * 
+     * @param node the root node
+     * @param item the value being searched for
+     *
+     * @return int the depth of the specified item
+     * 
+     */
     public int getDepth(NodeType<T> node, T item) {
 	if (node == null) {
-	    System.out.println("Node: " + node.getInfo());
-	    System.out.println("Node's left child: " + node.getLeft() + " Node's right child: " + node.getRight()); 
-	    System.out.println("Root: " + root.getInfo());
 	    return -1;
 	} else if (item.compareTo(node.getInfo()) < 0) {
 	    return getDepth(node.getLeft(), item) + 1;
@@ -438,6 +444,15 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	}
     }
 
+    /**
+     * Recursively prints the cousin nodes.
+     * By Maulik Durani
+     *
+     * @param node the root node
+     * @param item the specified item
+     * @param depth the calculated depth of the node that contains {@code item}
+     *
+     */
     public void getCousinsRecursive(NodeType<T> node, T item, int depth) {
 	if (depth < 2) {
 	    return;
@@ -451,36 +466,59 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	}
     }
 
+    /**
+     * A method used in getCousinsRecursive().
+     * By Maulik Durani
+     *
+     * @param node the root node
+     * @param depth the calculated depth from {@code getDepth(NodeType<T> node, T item)}
+     *
+     */
     public void printDepth(NodeType<T> node, int depth) {
 	if (node != null) {
-	if (depth == 0) {
-	    System.out.print(node.getInfo() + " ");
+	    if (depth == 0) {
+		System.out.print(node.getInfo() + " ");
+	    }
+	    if (node.getLeft() == null && node.getRight() == null) {
+		return;
+	    } else if (node.getLeft() == null && node.getRight() != null) {
+		printDepth(node.getRight(), depth - 1);
+	    } else if (node.getRight() != null && node.getRight() == null) {
+		printDepth(node.getLeft(), depth - 1);
+	    } else {
+		printDepth(node.getLeft(), depth - 1);
+		printDepth(node.getRight(), depth - 1);
+	    }
 	}
-	if (node.getLeft() == null && node.getRight() == null) {
-	    return;
-	} else if (node.getLeft() == null && node.getRight() != null) {
-	    printDepth(node.getRight(), depth - 1);
-	} else if (node.getRight() != null && node.getRight() == null) {
-	    printDepth(node.getLeft(), depth - 1);
-	} else {
-	    printDepth(node.getLeft(), depth - 1);
-	    printDepth(node.getRight(), depth - 1);
-	}
-    }
     }
 
+    /**
+     * The method called to find cousins of a specified item.
+     * By Maulik Durani
+     * 
+     * @param item the specified item
+     *
+     */
     public void getCousins(T item) {
 	if (searchRecursive(root, item)) {
 	    int depth = getDepth(root.getRight(), item);
-	    System.out.println("The Depth is" + depth);
-	    getCousinsRecursive(root, item, depth);
+	    getCousinsRecursive(root.getRight(), item, depth);
 	} else {
 	    System.out.println("");
 	}
     }
 
+    /**
+     * Calls {@code getCousins(T item)}.
+     * By Maulik Durani
+     *
+     * @param input the value used in searching
+     * @param choice specifies what datatype to convert {@code input} to
+     *
+     */
     public void getCousinsConverted(String input, String choice) {
 	T dt = convertToType(input, choice);
 	getCousins(dt);
     }
+    
 } // BST
