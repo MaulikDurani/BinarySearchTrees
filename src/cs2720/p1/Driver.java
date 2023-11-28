@@ -3,6 +3,18 @@ package cs2720.p1;
 import java.io.*;
 import java.util.*;
 
+/**
+ * The Driver class is responsible for running the program and interacting with
+ * the user.
+ * It provides a command-line interface for performing operations on a Binary
+ * Search Tree (BST).
+ * The user can insert items, delete items, print the tree, retrieve items,
+ * count leaf nodes,
+ * find single parents, find cousins, and quit the program.
+ * 
+ * @param <T> the type of elements stored in the BST, must implement the
+ *            Comparable interface
+ */
 public class Driver<T extends Comparable<T>> {
     /**
      * Main method of Driver to run program.
