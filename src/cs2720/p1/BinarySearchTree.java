@@ -38,6 +38,9 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * Inserts a new key into the binary search tree recursively.
      * If the key already exists, it will not be inserted again.
      *
+     * 
+     * By Ryan Majd
+     * 
      * @param root the root node of the binary search tree
      * @param key  the key to be inserted
      * @return the updated root node of the binary search tree
@@ -71,6 +74,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
             // If the key is larger, it goes to the right
             NodeType<T> rightChild = insertRecursive(root.getRight(), key);
             root.setRight(rightChild);
+        } else {
+            System.out.println("The item already exists in the tree.");
         }
 
         return root;
@@ -292,11 +297,12 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     /* Helper Methods */
-
+    @Deprecated
     public void toTree() {
         printTree(root, 0);
     }
 
+    @Deprecated
     private void printTree(NodeType<T> root, int depth) {
         if (root == null) {
             return;
@@ -315,7 +321,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
 
         printTree(root.getLeft(), depth + 1);
-    }
+    } // deprecated printTree method
 
     /**
      * Returns the root node of the binary search tree.
@@ -331,7 +337,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
     public String toString() {
         StringBuilder result = new StringBuilder();
         inOrderTraversal(root, result);
-        return result.toString().trim();
+        return "In-order: " + result.toString().trim();
     }
 
     /**
@@ -433,63 +439,64 @@ public class BinarySearchTree<T extends Comparable<T>> {
      * 
      */
     public int getDepth(NodeType<T> node, T item) {
-	if (node == null) {
-	    return -1;
-	} else if (item.compareTo(node.getInfo()) < 0) {
-	    return getDepth(node.getLeft(), item) + 1;
-	} else if (item.compareTo(node.getInfo()) > 0) {
-	    return getDepth(node.getRight(), item) + 1;
-	} else {
-	    return 0;
-	}
+        if (node == null) {
+            return -1;
+        } else if (item.compareTo(node.getInfo()) < 0) {
+            return getDepth(node.getLeft(), item) + 1;
+        } else if (item.compareTo(node.getInfo()) > 0) {
+            return getDepth(node.getRight(), item) + 1;
+        } else {
+            return 0;
+        }
     }
 
     /**
      * Recursively prints the cousin nodes.
      * By Maulik Durani
      *
-     * @param node the root node
-     * @param item the specified item
+     * @param node  the root node
+     * @param item  the specified item
      * @param depth the calculated depth of the node that contains {@code item}
      *
      */
     public void getCousinsRecursive(NodeType<T> node, T item, int depth) {
-	if (depth < 2) {
-	    return;
-	}
-	if (searchRecursive(node.getLeft(), item)) {
-	    getCousinsRecursive(node.getLeft(), item, depth - 1);
-	    printDepth(node.getRight(), depth - 1);
-	} else {
-	    getCousinsRecursive(node.getRight(), item, depth - 1);
-	    printDepth(node.getLeft(), depth - 1);
-	}
+        if (depth < 2) {
+            return;
+        }
+        if (searchRecursive(node.getLeft(), item)) {
+            getCousinsRecursive(node.getLeft(), item, depth - 1);
+            printDepth(node.getRight(), depth - 1);
+        } else {
+            getCousinsRecursive(node.getRight(), item, depth - 1);
+            printDepth(node.getLeft(), depth - 1);
+        }
     }
 
     /**
      * A method used in getCousinsRecursive().
      * By Maulik Durani
      *
-     * @param node the root node
-     * @param depth the calculated depth from {@code getDepth(NodeType<T> node, T item)}
+     * @param node  the root node
+     * @param depth the calculated depth from
+     *              {@code getDepth(NodeType<T> node, T item)}
      *
      */
     public void printDepth(NodeType<T> node, int depth) {
-	if (node != null) {
-	    if (depth == 0) {
-		System.out.print(node.getInfo() + " ");
-	    }
-	    if (node.getLeft() == null && node.getRight() == null) {
-		return;
-	    } else if (node.getLeft() == null && node.getRight() != null) {
-		printDepth(node.getRight(), depth - 1);
-	    } else if (node.getRight() != null && node.getRight() == null) {
-		printDepth(node.getLeft(), depth - 1);
-	    } else {
-		printDepth(node.getLeft(), depth - 1);
-		printDepth(node.getRight(), depth - 1);
-	    }
-	}
+        if (node != null) {
+            if (depth == 0) {
+                System.out.print(node.getInfo() + " ");
+            }
+            if (node.getLeft() == null && node.getRight() == null) {
+                return;
+            } else if (node.getLeft() == null && node.getRight() != null) {
+                printDepth(node.getRight(), depth - 1);
+            } else if (node.getRight() != null && node.getRight() == null) {
+                printDepth(node.getLeft(), depth - 1);
+            } else {
+                printDepth(node.getLeft(), depth - 1);
+                printDepth(node.getRight(), depth - 1);
+            }
+        }
     }
 
     /**
@@ -500,25 +507,25 @@ public class BinarySearchTree<T extends Comparable<T>> {
      *
      */
     public void getCousins(T item) {
-	if (searchRecursive(root, item)) {
-	    int depth = getDepth(root.getRight(), item);
-	    getCousinsRecursive(root.getRight(), item, depth);
-	} else {
-	    System.out.println("");
-	}
+        if (searchRecursive(root, item)) {
+            int depth = getDepth(root.getRight(), item);
+            getCousinsRecursive(root.getRight(), item, depth);
+        } else {
+            System.out.println("");
+        }
     }
 
     /**
      * Calls {@code getCousins(T item)}.
      * By Maulik Durani
      *
-     * @param input the value used in searching
+     * @param input  the value used in searching
      * @param choice specifies what datatype to convert {@code input} to
      *
      */
     public void getCousinsConverted(String input, String choice) {
-	T dt = convertToType(input, choice);
-	getCousins(dt);
+        T dt = convertToType(input, choice);
+        getCousins(dt);
     }
-    
+
 } // BST

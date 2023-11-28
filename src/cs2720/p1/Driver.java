@@ -79,8 +79,6 @@ public class Driver<T extends Comparable<T>> {
                     String input = sc.nextLine();
                     bst.convertAndInsert(input, choice);
                     System.out.println(bst.toString());
-                    System.out.print("TREE: \n");
-                    bst.toTree();
                     break;
                 case "d":
                     badPrevAns = false;
@@ -88,8 +86,6 @@ public class Driver<T extends Comparable<T>> {
                     String item = sc.nextLine();
                     bst.convertAndDelete(item, choice);
                     System.out.println(bst.toString());
-                    System.out.print("TREE: \n");
-                    bst.toTree();
                     break;
                 case "p":
                     badPrevAns = false;
@@ -109,12 +105,16 @@ public class Driver<T extends Comparable<T>> {
                     badPrevAns = false;
                     System.out.println("Single Parents: " + bst.getSingleParents());
                     break;
-	        case "c":
-		    System.out.print(bst.toString() + "\nEnter a value: ");
-		    String value = sc.nextLine();
-		    System.out.print(value + "'s cousins: ");
-		    bst.getCousinsConverted(value, choice);
-		    System.out.print("\n");
+                case "c":
+                    String word = "number";
+                    if (choice.equals("s")) {
+                        word = "string";
+                    }
+                    System.out.print(bst.toString() + "\nEnter a " + word + ": ");
+                    String value = sc.nextLine();
+                    System.out.print(value + "'s cousins: ");
+                    bst.getCousinsConverted(value, choice);
+                    System.out.print("\n");
                     break;
                 case "q":
                     badPrevAns = false;
